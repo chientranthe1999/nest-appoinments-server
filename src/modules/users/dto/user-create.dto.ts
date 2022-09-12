@@ -1,12 +1,17 @@
-import { Entity } from 'typeorm';
+import { IsEmail, IsNotEmpty } from 'class-validator';
 
-@Entity({ name: 'users' })
 export class UserCreateDto {
+  @IsNotEmpty()
   name: string;
 
   address: string;
 
+  @IsNotEmpty()
   phone: string;
 
+  @IsEmail()
   email: string;
+
+  @IsNotEmpty()
+  password: string;
 }

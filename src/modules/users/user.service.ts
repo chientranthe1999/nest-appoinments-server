@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from './user.entity';
 import { Repository } from 'typeorm';
-import { pick } from 'lodash';
+// import { pick } from 'lodash';
 
 @Injectable()
 export class UserService {
@@ -14,6 +14,12 @@ export class UserService {
 
   async get() {
     return await this.repository.findAndCount();
+  }
+
+  async findOne(phonenumber: string): Promise<UserEntity | undefined> {
+    return await this.repository.findOne({
+      where: { phonenumber },
+    });
   }
 
   async create(user: UserCreateDto) {

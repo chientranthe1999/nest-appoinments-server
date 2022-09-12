@@ -1,12 +1,11 @@
 import { UserCreateDto } from './dto/user-create.dto';
 import { Controller, Get, Post, Body, Put, Param } from '@nestjs/common';
 import { UserService } from './user.service';
-import { UserEntity } from './user.entity';
+// import { UserEntity } from './user.entity';
 
 @Controller('users')
-export class UsersController {
+export class UserController {
   constructor(private readonly service: UserService) {}
-  // đối tượng userservice // biến, phương thức
 
   @Get()
   async get() {

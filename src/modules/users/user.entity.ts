@@ -1,8 +1,6 @@
 import {
   Column,
   Entity,
-  JoinColumn,
-  OneToOne,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
@@ -28,8 +26,14 @@ export class UserEntity {
   @Column()
   email: string;
 
+  @Column()
+  email: string;
+
   @Column({ default: 1 })
   status: number;
+
+  @Column()
+  password: string;
 
   @CreateDateColumn()
   created_at: Date;
