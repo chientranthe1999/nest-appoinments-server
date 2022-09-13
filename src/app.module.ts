@@ -10,7 +10,8 @@ import { UserEntity } from './modules/users/user.entity';
 import { Appoiments } from './modules/appoinments/appoinment.entity';
 
 // Module
-import { UsersModule } from './modules/users/user.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { UserModule } from './modules/users/user.module';
 import { AppoinmentModule } from './modules/appoinments/appoinment.module';
 
 @Module({
@@ -26,7 +27,8 @@ import { AppoinmentModule } from './modules/appoinments/appoinment.module';
       synchronize: true,
       autoLoadEntities: true,
     }),
-    UsersModule,
+    UserModule,
+    AuthModule,
     AppoinmentModule,
   ],
   controllers: [AppController],

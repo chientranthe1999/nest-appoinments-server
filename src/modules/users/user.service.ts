@@ -3,7 +3,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from './user.entity';
 import { Repository } from 'typeorm';
-// import { pick } from 'lodash';
+//------------------------------------------------
+import { generateHash } from 'src/utils/auth.util';
 
 @Injectable()
 export class UserService {
@@ -16,13 +17,15 @@ export class UserService {
     return await this.repository.findAndCount();
   }
 
-  async findOne(phonenumber: string): Promise<UserEntity | undefined> {
+  async findOne(phone: string): Promise<UserEntity | undefined> {
     return await this.repository.findOne({
-      where: { phonenumber },
+      where: { phone },
     });
   }
 
   async create(user: UserCreateDto) {
+    const hashedPassword = generateHash(user.password);
+    user.password = hashedPassword;
     const userCreated = this.repository.create(user);
     return await this.repository.save(userCreated);
   }

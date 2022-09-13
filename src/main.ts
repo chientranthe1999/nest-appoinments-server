@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { HttpStatus } from '@nestjs/common';
+import { HttpStatus, ValidationPipe } from '@nestjs/common';
 
 import { AppModule } from './app.module';
 
@@ -11,10 +11,10 @@ async function bootstrap() {
 
   // validation
   app.useGlobalPipes(
-    new ValidatingPipe({
+    new ValidationPipe({
       transform: true,
       whitelist: true,
-      errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
+      errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY, // 422
     })
   );
 

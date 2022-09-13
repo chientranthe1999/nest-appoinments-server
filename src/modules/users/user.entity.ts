@@ -1,10 +1,4 @@
-import {
-  Column,
-  Entity,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity({ name: 'users' })
 export class UserEntity {
@@ -26,13 +20,10 @@ export class UserEntity {
   @Column()
   email: string;
 
-  @Column()
-  email: string;
-
   @Column({ default: 1 })
   status: number;
 
-  @Column()
+  @Column() // decorator
   password: string;
 
   @CreateDateColumn()
