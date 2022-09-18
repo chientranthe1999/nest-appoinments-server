@@ -26,7 +26,6 @@ export class UserController {
   async active(@Param('id') id: number) {
     try {
       const { affected } = await this.service.update({ status: 1 }, id);
-      console.log(affected);
       if (affected) {
         return {
           message: 'Kích hoạt user thành công',

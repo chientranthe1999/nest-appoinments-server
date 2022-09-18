@@ -20,7 +20,6 @@ export class UserRule implements ValidatorConstraintInterface {
           phone,
         },
       });
-      console.log(user);
       if (user) return false;
       return true;
     } catch (e) {
