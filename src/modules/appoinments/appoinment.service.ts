@@ -12,7 +12,12 @@ export class AppoimentService {
   ) {}
 
   async get() {
-    return await this.repository.findAndCount();
+    const [data, count] = await this.repository.findAndCount();
+
+    return {
+      data,
+      count,
+    };
   }
 
   async create(appoinment: any) {
@@ -25,10 +30,15 @@ export class AppoimentService {
   }
 
   async search(keyword: string) {
-    return await this.repository.findAndCount({
+    const [data, count] = await this.repository.findAndCount({
       where: {
         user_ccid: Like(`%${keyword}%`),
       },
     });
+
+    return {
+      data,
+      count,
+    };
   }
 }

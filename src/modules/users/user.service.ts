@@ -1,5 +1,5 @@
 import { UserCreateDto } from './dto/user-create.dto';
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from './user.entity';
 import { Repository } from 'typeorm';
@@ -14,7 +14,11 @@ export class UserService {
   ) {}
 
   async get() {
-    return await this.repository.findAndCount();
+    const [data, count] = await this.repository.findAndCount();
+    return {
+      data,
+      count,
+    };
   }
 
   async findOne(phone: string): Promise<UserEntity | undefined> {
@@ -23,7 +27,25 @@ export class UserService {
     });
   }
 
+  async findById(id: number): Promise<UserEntity | undefined> {
+    return await this.repository.findOne({
+      where: { id },
+    });
+  }
+
   async create(user: UserCreateDto) {
+    const isPhoneExist = await this.repository.findOne({
+      where: {
+        phone: user.phone,
+      },
+    });
+
+    if (isPhoneExist)
+      throw new HttpException(
+        'Số điện thoại đã được sử dụng. Vui lòng sử dụng sđt khác',
+        HttpStatus.UNPROCESSABLE_ENTITY
+      );
+
     const hashedPassword = generateHash(user.password);
     user.password = hashedPassword;
     const userCreated = this.repository.create(user);

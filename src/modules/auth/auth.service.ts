@@ -14,17 +14,24 @@ export class AuthService {
     });
   }
 
-  async login(phone: string, password: string) {
+  async login(phone: string, passwordData: string): Promise<any> {
     const user = await this.userService.findOne(phone);
 
     if (!user && !user.status) {
       return false;
     }
 
-    const isValid = validateHash(password, user.password);
+    const isValid = await validateHash(passwordData, user.password);
 
     if (!isValid) return false;
 
-    return this.generateToken(user.id, user.role);
+    const token = await this.generateToken(user.id, user.role);
+
+    const { password, ...userData } = user;
+
+    return {
+      access_token: token,
+      user: userData,
+    };
   }
 }

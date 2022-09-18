@@ -1,11 +1,9 @@
 import { Controller, Get, Post, Body, Put, Param, Query } from '@nestjs/common';
 import { AppoimentService } from './appoinment.service';
-import { Appoiments } from './appoinment.entity';
 
 @Controller('appoinments')
 export class AppoimentController {
   constructor(private readonly service: AppoimentService) {}
-  // đối tượng userservice // biến, phương thức
 
   @Get()
   async get() {
@@ -14,7 +12,6 @@ export class AppoimentController {
 
   @Get('search')
   async search(@Query('keyword') keyword) {
-    console.log(keyword);
     return await this.service.search(keyword);
   }
 
@@ -25,7 +22,6 @@ export class AppoimentController {
 
   @Put('update/:id')
   async active(@Param('id') id: number, @Body() updateData: any) {
-    console.log(updateData);
     return this.service.update(updateData, id);
   }
 }
