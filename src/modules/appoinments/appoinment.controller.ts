@@ -20,8 +20,18 @@ export class AppoimentController {
     return this.service.create(user);
   }
 
-  @Put('update/:id')
-  async active(@Param('id') id: number, @Body() updateData: any) {
-    return this.service.update(updateData, id);
+  @Put('accept/:id')
+  async accept(@Param('id') id: number, @Body() updateData: any) {
+    return this.service.update({ status: 2, ...updateData }, id);
+  }
+
+  @Put('cancel/:id')
+  async cancel(@Param('id') id: number) {
+    return this.service.update({ status: 3 }, id);
+  }
+
+  @Put('finish/:id')
+  async finish(@Param('id') id: number) {
+    return this.service.update({ status: 4 }, id);
   }
 }

@@ -1,10 +1,4 @@
-import {
-  Column,
-  Entity,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity({ name: 'appoiments' })
 export class Appoiments {
@@ -34,6 +28,9 @@ export class Appoiments {
 
   @Column({ nullable: true })
   accepted_time: string;
+
+  @Column({ nullable: true })
+  accepted_date: string;
 
   @Column({ nullable: true })
   description: string;
