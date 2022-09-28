@@ -10,7 +10,7 @@ const ROLE = {
   ADMIN: 1,
   ASSISTANT: 2,
   USER: 3,
-}
+};
 
 @Injectable()
 export class UserService {
@@ -20,13 +20,11 @@ export class UserService {
   ) {}
 
   async get() {
-    const [data, count] = await this.repository.findAndCount(
-      {
-        where: {
-          role: Not(ROLE.ADMIN)
-        }
-      }
-    );
+    const [data, count] = await this.repository.findAndCount({
+      where: {
+        role: Not(ROLE.ADMIN),
+      },
+    });
     return {
       data,
       count,
@@ -36,6 +34,14 @@ export class UserService {
   async findOne(phone: string): Promise<UserEntity | undefined> {
     return await this.repository.findOne({
       where: { phone },
+    });
+  }
+
+  async getTypeUser() {
+    return await this.repository.find({
+      where: {
+        role: ROLE.USER,
+      },
     });
   }
 

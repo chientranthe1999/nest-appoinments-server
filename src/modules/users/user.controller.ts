@@ -13,6 +13,11 @@ export class UserController {
     return this.service.get();
   }
 
+  @Get('type-user')
+  async getUserType() {
+    return this.service.get();
+  }
+
   @UseGuards(JwtAuthGuard)
   @Get('me')
   async me(@Request() req) {

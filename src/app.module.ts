@@ -21,7 +21,7 @@ import { AppoinmentModule } from './modules/appoinments/appoinment.module';
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: 'Chien.K.19',
+      password: '12345678',
       database: 'appoinments',
       entities: [UserEntity, Appoiments],
       synchronize: true,

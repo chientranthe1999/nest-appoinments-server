@@ -1,7 +1,6 @@
-import { IsEmail, IsNotEmpty, IsNumber } from 'class-validator';
+import { IsEmail, IsNotEmpty } from 'class-validator';
 
 export class CreateAppointmentDto {
-  @IsNumber()
   @IsNotEmpty()
   user_id: number;
 
