@@ -17,7 +17,7 @@ export class AuthService {
   async login(phone: string, passwordData: string): Promise<any> {
     const user = await this.userService.findOne(phone);
 
-    if (!user && !user.status) {
+    if (!user || !user.status) {
       return false;
     }
 
@@ -27,6 +27,7 @@ export class AuthService {
 
     const token = await this.generateToken(user.id, user.role);
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...userData } = user;
 
     return {

@@ -2,9 +2,15 @@ import { UserCreateDto } from './dto/user-create.dto';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from './user.entity';
-import { Repository } from 'typeorm';
+import { Not, Repository } from 'typeorm';
 //------------------------------------------------
 import { generateHash } from 'src/utils/auth.util';
+
+const ROLE = {
+  ADMIN: 1,
+  ASSISTANT: 2,
+  USER: 3,
+}
 
 @Injectable()
 export class UserService {
@@ -14,7 +20,13 @@ export class UserService {
   ) {}
 
   async get() {
-    const [data, count] = await this.repository.findAndCount();
+    const [data, count] = await this.repository.findAndCount(
+      {
+        where: {
+          role: Not(ROLE.ADMIN)
+        }
+      }
+    );
     return {
       data,
       count,
@@ -27,10 +39,12 @@ export class UserService {
     });
   }
 
-  async findById(id: number): Promise<UserEntity | undefined> {
-    return await this.repository.findOne({
+  async findById(id: number): Promise<UserEntity | any> {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password, ...user } = await this.repository.findOne({
       where: { id },
     });
+    return user;
   }
 
   async create(user: UserCreateDto) {

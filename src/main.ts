@@ -4,7 +4,7 @@ import { HttpStatus, ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 
 declare const module: any;
-const PORT = 9000;
+const PORT = 9001;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

@@ -14,7 +14,7 @@ export class UserEntity {
   @Column()
   phone: string;
 
-  @Column({ default: 1 })
+  @Column({ default: 3 })
   role: number;
 
   @Column()

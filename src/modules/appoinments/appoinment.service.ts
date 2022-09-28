@@ -21,6 +21,9 @@ export class AppoimentService {
   }
 
   async create(appoinment: any) {
+    appoinment.accepted_date = appoinment.date;
+    appoinment.accepted_time = appoinment.time;
+
     const appoinmentCreated = this.repository.create(appoinment);
     return await this.repository.save(appoinmentCreated);
   }

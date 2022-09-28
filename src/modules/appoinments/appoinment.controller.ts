@@ -1,5 +1,6 @@
 import { Controller, Get, Post, Body, Put, Param, Query } from '@nestjs/common';
 import { AppoimentService } from './appoinment.service';
+import { CreateAppointmentDto } from './dto/appointment.dto';
 
 @Controller('appoinments')
 export class AppoimentController {
@@ -16,7 +17,7 @@ export class AppoimentController {
   }
 
   @Post()
-  async create(@Body() user: any) {
+  async create(@Body() user: CreateAppointmentDto) {
     return this.service.create(user);
   }
 

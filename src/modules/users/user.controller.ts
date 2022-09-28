@@ -1,15 +1,22 @@
 import { UserCreateDto } from './dto/user-create.dto';
-import { Controller, Get, Post, Body, Put, Param, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Param, HttpException, HttpStatus, UseGuards, Request } from '@nestjs/common';
 import { UserService } from './user.service';
-// import { UserEntity } from './user.entity';
+import { JwtAuthGuard } from 'src/modules/auth/jwt-auth.guard';
 
 @Controller('users')
 export class UserController {
   constructor(private readonly service: UserService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   async get() {
     return this.service.get();
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('me')
+  async me(@Request() req) {
+    return this.service.findById(req.user.userId);
   }
 
   @Get(':id')
