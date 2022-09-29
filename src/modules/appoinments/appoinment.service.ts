@@ -15,10 +15,16 @@ export class AppoimentService {
   ) {}
 
   async get(user: any) {
+    let filters: any = { user_id: user.userId };
+    if (user.role === 2) {
+      filters = {
+        status: 2,
+      };
+    }
     const [data, count] = await this.repository.findAndCount({
-      where: { user_id: user.userId },
+      where: filters,
+      order: { created_at: 'DESC' },
     });
-
     return {
       data,
       count,

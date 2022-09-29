@@ -15,7 +15,7 @@ export class UserController {
 
   @Get('type-user')
   async getUserType() {
-    return this.service.get();
+    return this.service.getTypeUser();
   }
 
   @UseGuards(JwtAuthGuard)
