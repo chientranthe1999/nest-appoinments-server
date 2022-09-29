@@ -1,7 +1,14 @@
 export default () => ({
-  port: parseInt(process.env.PORT, 10) || 3000,
+  port: process.env.PORT,
   database: {
-    host: process.env.DATABASE_HOST,
-    port: parseInt(process.env.DATABASE_PORT, 10) || 5432,
+    host: process.env.DB_HOST,
+    port: Number(process.env.DB_PORT),
+    user: process.env.DB_USER,
+    pass: process.env.DB_PASS,
+    name: process.env.DB_NAME,
+  },
+  mail: {
+    host: process.env.MAIL_HOST,
+    user: process.env.MAIL_USER,
   },
 });
